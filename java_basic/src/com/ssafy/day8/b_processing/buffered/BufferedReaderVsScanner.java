@@ -24,9 +24,9 @@ public class BufferedReaderVsScanner {
 
         try (Scanner s = new Scanner(file)) {
             long start = System.nanoTime();
-            String line = null;
-            while (s.hasNextLine()) {
-                line = s.nextLine();
+            int line = -1;
+            while (s.hasNext()) {
+                line = s.nextInt();	// 원하는 타입으로 바로 읽을 수 있다.
                 // System.out.println(line);
             }
             System.out.printf("sc: %10d%n", System.nanoTime() - start);
@@ -40,6 +40,7 @@ public class BufferedReaderVsScanner {
             long start = System.nanoTime();
             String line = null;
             while ((line = br.readLine()) != null) {
+            	int num = Integer.parseInt(line);	// bufferedReader : 별도의 캐스팅 필요
                 // System.out.println(line);
             }
             System.out.printf("br: %10d%n", System.nanoTime() - start);
