@@ -33,7 +33,7 @@ public class FIlterTest {
             e.printStackTrace();
         }
     }
-
+    
     private void filterTest() {
         System.out.println("중복 제거 결과: " + words.stream().distinct().count());
         System.out.println("처음 다섯개 단어: ");
