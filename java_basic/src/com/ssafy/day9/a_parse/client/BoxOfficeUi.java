@@ -54,7 +54,7 @@ public class BoxOfficeUi extends JFrame {
     }
 
     private void launchUi() {
-
+    	
         // 테이블 구성
         tblBoxOffice = new JTable();
         tblBoxOffice.setDefaultEditor(Object.class, null);
@@ -88,7 +88,7 @@ public class BoxOfficeUi extends JFrame {
 
     private void addEventListener() {
         btnSearch.addActionListener(e -> {
-            // 기존 자료 삭제
+            // 기존 자료 삭제 ( 초기화 )
             model.setRowCount(0);
             // 새로운 자료 조회
             String targetDt = tfDate.getText();
@@ -114,7 +114,14 @@ public class BoxOfficeUi extends JFrame {
         });
 
         // TODO:테이블에서 행을 더블클릭했을 때 발생하는 이벤트를 처리하여 showDetailFrame 메서드를 호출해보자.
-
+        tblBoxOffice.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {	// double click
+                    showDetailFrame();
+                }
+            }
+        });
         // END
     }
 

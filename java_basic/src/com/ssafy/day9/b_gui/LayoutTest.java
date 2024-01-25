@@ -12,12 +12,13 @@ import javax.swing.JTextField;
 
 public class LayoutTest extends JFrame {
     private static final long serialVersionUID = 1L;
-    private JLabel lNum1, lNum2, lCorrectCnt, lWrongCnt;
-    private JTextField tfAns;
+    private JLabel lNum1, lNum2, lCorrectCnt, lWrongCnt;	//화면 표시용 라벨들
+    private JTextField tfAns;	// 텍스트 입력 필드
     private int answer;
 
     public static void main(String[] args) {
         LayoutTest lt = new LayoutTest();
+        //lt.setVisible(true);
         lt.launchUi();
     }
 
@@ -45,13 +46,45 @@ public class LayoutTest extends JFrame {
 
     private void makeResultPanel() {
         // TODO: 결과를 보여줄 panel을 구성하시오.
-
-        // END
+    	JPanel panel = new JPanel();
+    	panel.add(new JLabel("정답 개수 : "));
+    	panel.add(lCorrectCnt = new JLabel("0"));
+    	panel.add(new JLabel("오답 개수 : "));
+    	panel.add(lWrongCnt = new JLabel("0"));
+    	this.add(panel, BorderLayout.SOUTH);
+    	// END
     }
 
     private void makeProblemPanel() {
         // TODO: 문제를 출제할 패널을 구성하시오.
-
+    	JPanel panel = new JPanel();
+    	lNum1 = new JLabel();	//숫자 1
+    	panel.add(lNum1);
+    	panel.add(new JLabel("*"));	//곱셈 기호
+    	lNum2 = new JLabel();
+    	panel.add(lNum2);	// 숫자 2
+    	panel.add(new JLabel("="));	// 등호
+    	tfAns = new JTextField(10);	// 10 : 너비
+    	panel.add(tfAns);
+    	
+    	tfAns.addKeyListener(new KeyAdapter() {
+    		@Override
+    		public void keyReleased(KeyEvent e) {
+    			System.out.println("키보드 눌렀다가 뗌");
+    			if (e.getKeyCode() == 10) {
+    				// 입력값 얻어오기
+    				int val = Integer.parseInt(tfAns.getText());
+    				if (answer == val) {
+    					lCorrectCnt.setText(Integer.parseInt(lCorrectCnt.getText()) + 1 + ""); 
+    				} else {
+    					lWrongCnt.setText(Integer.parseInt(lWrongCnt.getText()) + 1 + ""); 
+    				}
+    			}
+    		}
+		});
+    	makeProblem();
+    	this.add(panel, BorderLayout.CENTER);
+    	//this.add(panel, "Center");
         // END
     }
 
